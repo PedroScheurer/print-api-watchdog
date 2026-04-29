@@ -1,0 +1,8 @@
+services:
+  pdf-print-monitor:
+    build: .
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
