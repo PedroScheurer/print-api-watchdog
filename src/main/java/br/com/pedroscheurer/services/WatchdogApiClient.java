@@ -16,6 +16,7 @@ public class WatchdogApiClient {
 
     private final HttpClient client;
     private final String baseUrl;
+    ObjectMapper mapper = new ObjectMapper();
     private static final Logger log = LoggerFactory.getLogger(WatchdogApiClient.class);
 
 
@@ -24,6 +25,11 @@ public class WatchdogApiClient {
         this.client  = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
+    }
+
+    public WatchdogApiClient(String baseUrl, HttpClient client) {
+        this.baseUrl = baseUrl;
+        this.client  = client;
     }
 
     public String verifyPdfImpression(String path, String token) throws IOException, InterruptedException {
@@ -56,7 +62,6 @@ public class WatchdogApiClient {
 
         if (isStatusCodeOk(status)) {
             log.info("Token obtido com sucesso");
-            ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(response.body());
             return node.get("token").asText();
         }

@@ -38,8 +38,8 @@ public class Scheduler {
         scheduler.scheduleAtFixedRate(
                 this::verifyPdf,
                 5,
-                5,
-                TimeUnit.MINUTES
+                300,
+                TimeUnit.SECONDS
         );
 
         log.info("Scheduler iniciado — token a cada 24h, verificação a cada 5min");
